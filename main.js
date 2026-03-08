@@ -7,34 +7,34 @@ const keyMap = {
   'h': { key: 'a-key', audio: new Audio('audio/A.wav') },
   'j': { key: 'b-key', audio: new Audio('audio/B.wav') },
   'k': { key: 'high-c-key', audio: new Audio('audio/C8.wav') },
-  'w': { key: 'c-sharp-key', audio: new Audio('audio/C#.wav') },
-  'e': { key: 'd-sharp-key', audio: new Audio('audio/D#.wav') },
-  't': { key: 'f-sharp-key', audio: new Audio('audio/F#.wav') },
-  'y': { key: 'g-sharp-key', audio: new Audio('audio/G#.wav') },
-  'u': { key: 'a-sharp-key', audio: new Audio('audio/A#.wav') }
+  'w': { key: 'c-sharp-key', audio: new Audio('audio/C_.wav') },
+  'e': { key: 'd-sharp-key', audio: new Audio('audio/D_.wav') },
+  't': { key: 'f-sharp-key', audio: new Audio('audio/F_.wav') },
+  'y': { key: 'g-sharp-key', audio: new Audio('audio/G_.wav') },
+  'u': { key: 'a-sharp-key', audio: new Audio('audio/A_.wav') }
 };
 
 function keyPlay(event) {
-  const keyInfo = keyMap[event.key];
-  if (keyInfo) {
-    console.log(`Playing sound for key: ${event.key}`);
-    const key = keyInfo.key;
-    document.getElementById(key).style.backgroundColor = 'aquamarine';
-    document.getElementById(key).style.boxShadow = '1px 2px';
+  if (event.repeat) return;
 
-    // Riproduci l'audio associato al tasto
-    keyInfo.audio.currentTime = 0;
-    keyInfo.audio.play();
- }
+  const keyInfo = keyMap[event.key];
+  if (!keyInfo) return;
+
+  const keyEl = document.getElementById(keyInfo.key);
+  keyEl.style.backgroundColor = 'aquamarine';
+  keyEl.style.boxShadow = '1px 2px';
+
+  keyInfo.audio.currentTime = 0;
+  keyInfo.audio.play();
 }
 
 function keyStop(event) {
   const keyInfo = keyMap[event.key];
-  if (keyInfo) {
-    const key = keyInfo.key;
-    document.getElementById(key).style.backgroundColor = '';
-    document.getElementById(key).style.boxShadow = '';
-  }
+  if (!keyInfo) return;
+
+  const keyEl = document.getElementById(keyInfo.key);
+  keyEl.style.backgroundColor = '';
+  keyEl.style.boxShadow = '';
 }
 
 document.addEventListener('keydown', keyPlay);
